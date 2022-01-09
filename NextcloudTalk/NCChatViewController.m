@@ -998,13 +998,23 @@ NSString * const NCChatViewControllerTalkToUserNotification = @"NCChatViewContro
 - (void)videoCallButtonPressed:(id)sender
 {
     [_videoCallButton showActivityIndicator];
-    [[CallKitManager sharedInstance] startCall:_room.token withVideoEnabled:YES andDisplayName:_room.displayName withAccountId:_room.accountId];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        [_videoCallButton hideActivityIndicator];
+    });
+    
+    //[_videoCallButton showActivityIndicator];
+    //[[CallKitManager sharedInstance] startCall:_room.token withVideoEnabled:YES andDisplayName:_room.displayName withAccountId:_room.accountId];
 }
 
 - (void)voiceCallButtonPressed:(id)sender
 {
     [_voiceCallButton showActivityIndicator];
-    [[CallKitManager sharedInstance] startCall:_room.token withVideoEnabled:NO andDisplayName:_room.displayName withAccountId:_room.accountId];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        [_voiceCallButton hideActivityIndicator];
+    });
+    
+    //[_voiceCallButton showActivityIndicator];
+    //[[CallKitManager sharedInstance] startCall:_room.token withVideoEnabled:NO andDisplayName:_room.displayName withAccountId:_room.accountId];
 }
 
 - (void)sendChatMessage:(NSString *)message fromInputField:(BOOL)fromInputField
